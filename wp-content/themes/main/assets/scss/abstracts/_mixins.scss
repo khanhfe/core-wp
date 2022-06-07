@@ -1,0 +1,271 @@
+@import "variables";
+
+$xxs: "only screen and (max-width: 320px)";
+$xs: "only screen and (max-width: 575.98px)";
+$sm: "only screen and (min-width: 576px)";
+$md: "only screen and (min-width: 768px)";
+$lg: "only screen and (min-width: 992px)";
+$xl: "only screen and (min-width: 1600px)";
+$xxl: "only screen and (min-width: 1200px)";
+
+// Responsive
+@mixin xxs() {
+    @media #{$xxs} {
+        @content;
+    }
+}
+@mixin xs() {
+    @media #{$xs} {
+        @content;
+    }
+}
+@mixin sm() {
+    @media #{$sm} {
+        @content;
+    }
+}
+@mixin md() {
+    @media #{$md} {
+        @content;
+    }
+}
+@mixin lg() {
+    @media #{$lg} {
+        @content;
+    }
+}
+@mixin xl() {
+    @media #{$xl} {
+        @content;
+    }
+}
+@mixin xxl() {
+    @media #{$xxl} {
+        @content;
+    }
+}
+
+// Custom responsive
+@mixin mediaMaxWidth($breakpoints) {
+    @media only screen and (max-width: $breakpoints) {
+        @content;
+    }
+}
+
+@mixin mediaMinWidth($breakpoints) {
+    @media only screen and (max-width: $breakpoints) {
+        @content;
+    }
+}
+
+@mixin mediaMinMaxWidth($min, $max) {
+    @media (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}
+
+// Transition
+@mixin transition($time) {
+    -moz-transition: all $time ease-in-out;
+    -o-transition: all $time ease-in-out;
+    -webkit-transition: all $time ease-in-out;
+    transition: all $time ease-in-out;
+}
+
+// Animation
+@mixin animation($value) {
+    -webkit-animation: $value;
+    -moz-animation: $value;
+    -o-animation: $value;
+    -ms-animation: $value;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-o-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+// Position fixed
+@mixin position($type: absolute, $top: 0, $right: 0, $bottom: 0, $left: 0) {
+    position: $type;
+    bottom: $bottom;
+    left: $left;
+    right: $right;
+    top: $top;
+}
+
+@mixin positionTransform($top: 50%, $left: 50%) {
+    position: absolute;
+    left: $left;
+    top: $top;
+    transform: translateX(-#{$left}) translateY(-#{$top});
+}
+
+@mixin positionCenter($width, $height: 0) {
+    position: absolute;
+    @if $height != 0 {
+        top: calc(50% - (#{$height} / 2));
+        left: calc(50% - (#{$width} / 2));
+    } @else {
+        top: calc(50% - (#{$width} / 2));
+        left: calc(50% - (#{$width} / 2));
+    }
+}
+
+// Transform
+@mixin transform($value) {
+    transform: $value;
+    -webkit-transform: $value;
+    -moz-transform: $value;
+}
+
+@mixin flexCenterDirection($direction: initial) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: $direction;
+}
+
+@mixin flexBox($align: flex-start, $justify: flex-start, $flex: initial) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $flex;
+}
+
+// Hamburger
+@mixin hamburger($dimensions, $speed: 0.2s, $easing: ease-in-out, $width: 16px, $height: 1px, $mb: 3px) {
+    cursor: pointer;
+    @include flexCenterDirection(column);
+    height: $dimensions;
+    position: relative;
+    width: $dimensions;
+    span {
+        background-color: currentColor;
+        display: block;
+        height: $height;
+        transform-origin: center;
+        transition-duration: $speed;
+        transition-property: background-color, opacity, transform;
+        transition-timing-function: $easing;
+        width: $width;
+        margin-bottom: $mb;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &:hover {
+        background-color: rgba(black, 0.05);
+    }
+
+    // Modifiers
+    &.is-active {
+        span {
+            &:nth-child(1) {
+                transform: translateY(5px) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+            }
+
+            &:nth-child(3) {
+                transform: translateY(-5px) rotate(-45deg);
+            }
+        }
+    }
+}
+
+// Placeholder
+@mixin placeholder {
+    $placeholders: ":-moz" ":-webkit-input" "-moz" "-ms-input";
+
+    @each $placeholder in $placeholders {
+        &:#{$placeholder}-placeholder {
+            @content;
+        }
+    }
+}
+
+// Clearfix
+@mixin clearfix {
+    &::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+}
+
+// Loader
+@mixin loader {
+    @include animation(spinAround 500ms infinite linear);
+    border: 2px solid $grey-lighter;
+    border-radius: $radius-rounded;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    height: 1em;
+    position: relative;
+    width: 1em;
+}
+
+%loader {
+    @include loader;
+}
+
+@mixin button($width, $height, $bg: unset, $color: unset, $border: unset) {
+    width: $width;
+    height: $height;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    @if $bg != unset {
+        background: $bg;
+    }
+    @if $color != unset {
+        color: $color;
+    }
+    @if $border != unset {
+        border: $border;
+    }
+    @include flexBox(center, center);
+}
+
+@mixin background($position, $repeat, $size) {
+    background-position: $position;
+    background-repeat: $repeat;
+    background-size: $size;
+}
+
+@mixin imgScale {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    transition: all 0.3s ease-in-out;
+}
+
+@mixin wordBreak($line, $height) {
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: $height;
+}

@@ -1,0 +1,76 @@
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #878d8d78;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #878d8d78;
+}
+
+// Form
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  outline: none;
+}
+
+// Box sizing
+html {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* {
+  &,
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+// Media
+img,
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+// Iframe
+iframe {
+  border: 0;
+}
+
+// Table
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+
+  &:not([align]) {
+    text-align: left;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.site-container {
+  overflow: hidden;
+}
